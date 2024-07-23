@@ -7,6 +7,8 @@ import { LoginResponse } from './dto/login-response';
 import { RefreshTokenResponse } from './dto/refresh-token-response';
 import { User } from 'src/user/entities/user.entity';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { JwtAuthGuard } from './guards/jwt/jwt-auth.guard';
+import { JwtRefreshAuthGuard } from './guards/jwt/jwt-refresh-auth.guard';
 
 @Resolver()
 export class AuthResolver {
@@ -25,6 +27,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => RefreshTokenResponse)
+  @UseGuards(JwtRefreshAuthGuard)
   refresh(@Context() context): Promise<RefreshTokenResponse> {
     const { sub, refreshToken } = context.req.user;
     return this.tokenService.refresh(sub, refreshToken);
@@ -36,6 +39,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => Boolean)
+  @UseGuards(JwtAuthGuard)
   logout(@Context() context): Promise<boolean> {
     return this.authService.logout(context.req.user.sub);
   }

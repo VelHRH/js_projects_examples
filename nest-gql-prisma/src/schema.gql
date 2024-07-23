@@ -4,12 +4,9 @@
 
 type Product {
   id: Int!
-  description: String!
   price: Float!
-  quantity: Int!
   name: String!
   authorId: Int!
-  image: String!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -43,15 +40,23 @@ type LoginResponse {
 
 type Query {
   products: [Product!]!
+  product(id: Int!): Product!
   users: [User!]!
   user(id: Int!): User!
 }
 
 type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product!
   login(loginInput: LoginInput!): LoginResponse!
   refresh: RefreshTokenResponse!
   signup(signupInput: LoginInput!): User!
   logout: Boolean!
+}
+
+input CreateProductInput {
+  name: String!
+  price: Float!
+  authorId: Int!
 }
 
 input LoginInput {
