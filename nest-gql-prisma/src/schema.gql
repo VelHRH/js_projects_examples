@@ -8,6 +8,7 @@ type Product {
   price: Float!
   quantity: Int!
   name: String!
+  authorId: Int!
   image: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -18,6 +19,24 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: Int!
+  email: String!
+  refreshToken: String
+  products: [Product!]
+}
+
 type Query {
   products: [Product!]!
+  users: [User!]!
+  user(id: Int!): User!
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+}
+
+input CreateUserInput {
+  email: String!
+  password: String!
 }

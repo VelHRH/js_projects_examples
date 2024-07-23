@@ -1,7 +1,20 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, HideField } from '@nestjs/graphql';
+import { Product } from 'src/product/entities/product.entity';
 
 @ObjectType()
 export class User {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field(() => Int)
+  id: number;
+
+  @Field()
+  email: string;
+
+  @HideField()
+  password: string;
+
+  @Field({ nullable: true })
+  refreshToken?: string;
+
+  @Field(() => [Product], { nullable: true })
+  products: Product[];
 }

@@ -13,7 +13,8 @@ export class Product {
 
   @Field()
   name: string;
-
+  @Field(() => Int)
+  authorId: number;
   @Field()
   image: string;
   @Field()
