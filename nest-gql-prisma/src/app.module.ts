@@ -8,6 +8,8 @@ import { join } from 'path';
 import { ProductService } from './product/product.service';
 import { ProductModule } from './product/product.module';
 import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -15,8 +17,10 @@ import { UserModule } from './user/user.module';
       driver: ApolloDriver,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
+    ConfigModule.forRoot({ isGlobal: true }),
     ProductModule,
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, ProductService],
