@@ -5,28 +5,27 @@ import { Link, useLocation } from "react-router-dom";
 const routes = {
   CALCULATOR: {
     path: "/",
-    name: "calculate",
+    name: "products",
   },
   SETTINGS: {
-    path: "/settings",
-    name: "settings",
+    path: "/users",
+    name: "users",
   },
 } as const;
 
 const Navbar: FC = () => {
   const location = useLocation();
   return (
-    <div className="flex flex-col gap-5 p-5 w-1/4 items-center bg-slate-200">
+    <div className="flex bg-slate-700 p-5 rounded-full gap-10">
       {Object.values(routes).map((route) => (
         <Link
           to={route.path}
           key={route.path}
-          className={`hover:text-indigo-500 duration-300 hover:underline underline-offset-4 ${
-            location.pathname === route.path &&
-            "text-indigo-500 underline underline-offset-4"
+          className={`hover:text-green-500 duration-300 hover:underline underline-offset-4 ${
+            location.pathname === route.path && "text-green-500 underline"
           }`}
         >
-          {route.name}
+          {route.name.toUpperCase()}
         </Link>
       ))}
     </div>
