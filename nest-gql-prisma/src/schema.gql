@@ -4,11 +4,9 @@
 
 type Product {
   id: Int!
-  description: String!
   price: Float!
-  quantity: Int!
   name: String!
-  image: String!
+  authorId: Int!
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -18,6 +16,50 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: Int!
+  email: String!
+  refreshToken: String
+  products: [Product!]
+}
+
+type RefreshTokenResponse {
+  accessToken: String!
+  refreshToken: String!
+  expiresIn: Float!
+}
+
+type LoginResponse {
+  accessToken: String!
+  refreshToken: String
+  expiresIn: Float!
+  id: Int!
+  email: String!
+  products: [Product!]
+}
+
 type Query {
   products: [Product!]!
+  product(id: Int!): Product!
+  users: [User!]!
+  user(id: Int!): User!
+}
+
+type Mutation {
+  createProduct(createProductInput: CreateProductInput!): Product!
+  login(loginInput: LoginInput!): LoginResponse!
+  refresh: RefreshTokenResponse!
+  signup(signupInput: LoginInput!): User!
+  logout: Boolean!
+}
+
+input CreateProductInput {
+  name: String!
+  price: Float!
+  authorId: Int!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }

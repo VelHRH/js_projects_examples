@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateProductInput } from './dto/create-product.input';
 
 @Injectable()
 export class ProductService {
@@ -12,6 +13,12 @@ export class ProductService {
   findOne(id: number) {
     return this.prisma.product.findUnique({
       where: { id },
+    });
+  }
+
+  create(data: CreateProductInput) {
+    return this.prisma.product.create({
+      data,
     });
   }
 }
